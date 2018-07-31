@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>TNI QuickNotes - DSL</title>
+</head>
+
+<body>
+
+<div class="OuterContain">
+
+    <div class="container left-div">
+        <form id="contact">
+            <h3>TNI QuickNotes</h3>
+            <h4>Fill out the form to quickly generate your call notes.</h4>
+            <fieldset>
+                <input placeholder="Caller's Name" type="text" id="callername" tabindex="1" autofocus>
+            </fieldset>
+            <fieldset>
+                <div class="columnNoSyncElems">
+                    <input placeholder="BTN (ex. 5553271423)" type="tel" id="billnum" maxlength="10" tabindex="2"><br/>
+                    <input placeholder="CBN (ex. 5553271423)" type="tel" id="contnum" maxlength="10" tabindex="3">
+                    <select id="verificationSelect" tabindex="4">
+                        <option id="verDefault" value="" selected disabled hidden>Verification</option>
+                        <option id="verSS" value="Last 4 SS#">Last 4 SS#</option>
+                        <option id="verPIN" value="Account PIN">Account PIN</option>
+                        <option id="verSec?" value="Security Question">Security Question</option>
+                        <option id="verDOB" value="Date of Birth">Date of Birth</option>
+                    </select>
+                    <input placeholder="Email (ex. @frontier.com)" type="email" id="emailNPS" tabindex="5">
+                </div>
+            </fieldset>
+            <fieldset>
+                <div id="AccntActiveCheck" class="columnNoSyncElems">
+                    <span style="font-size:15px;font-weight:bold;">Account Status:</span><br/>
+                    <input id="activePassed" value="Active" type="checkbox">
+                    <label class="checkbox" for="activePassed"> Active</label>
+                    <input id="activeFailed" value="Suspended" type="checkbox">
+                    <label class="checkbox" for="activeFailed"> Suspended</label>
+                    <select id="primModemSelection">
+                        <option id="primDefault" value="" selected disabled hidden>Select a Modem</option>
+                        <option id="primOther" value="">Other</option>
+                        <option id="primNetD2200D" value="Netgear D2200D">Netgear D2200D</option>
+                        <option id="primNet7550" value="Netgear 7550">Netgear 7550</option>
+                        <option id="primAT22500" value="Actiontech 2250">Actiontech 2250</option>
+                        <option id="primATGT784WNV" value="Actiontech GT-784WNV">Actiontech GT-784WNV</option>
+                        <option id="primDL2750B" value="D-Link 2750B">D-Link 2750B</option>
+                        <option id="primWes6100" value="Westell 6100">Westell 6100</option>
+                        <option id="primSE567" value="Siemens SE567">Siemens SE567</option>
+                        <option id="primThirdParty" value="Third Party Modem">Third Party Modem</option>
+                    </select>
+                    <textarea placeholder="Modem Light Status" id="ModemLightsInput"></textarea>
+                </div>
+            </fieldset>
+            <fieldset>
+                <span style="font-size:15px;font-weight:bold;">Issue(s):</span>
+            </fieldset>
+            <fieldset>
+                <div id="IssueColumns" class="columnIssues" style="margin-bottom:15px;">
+                    <input id="NoSync" value=" No Sync |" type="checkbox">
+                    <label class="checkbox" for="NoSync"> No Sync</label>
+                    <input id="Email" value=" Email |" type="checkbox">
+                    <label class="checkbox" for="Email"> Email</label>
+                    <input id="WalledGarden" value=" Walled Garden |" type="checkbox">
+                    <label class="checkbox" for="WalledGarden"> Walled Garden</label>
+                    <input id="ConNoBrow" value=" ConnectNoBrowse |" type="checkbox">
+                    <label class="checkbox" for="ConNoBrow"> ConnNoBrowse</label>
+                    <input id="FreqDisco" value=" Frequent Disconnects |" type="checkbox">
+                    <label class="checkbox" for="FreqDisco"> Frequent Disco's</label>
+                    <input id="SlowSpeeds" value=" Slow Speeds |" type="checkbox">
+                    <label class="checkbox" for="SlowSpeeds"> Slow Speeds</label>
+                    <input id="NoRouteDSL" value=" No Route DSL |" type="checkbox">
+                    <label class="checkbox" for="NoRouteDSL"> No BRAS</label>
+                    <input id="NoELight" value=" No Ethernet Light |" type="checkbox">
+                    <label class="checkbox" for="NoELight"> No Ethernet Light</label>
+                    <input id="BadModem" value=" Possible Bad Modem |" type="checkbox">
+                    <label class="checkbox" for="BadModem"> No Power Light</label>
+                    <input id="Wireless" value=" Wireless |" type="checkbox">
+                    <label class="checkbox" for="Wireless"> Wireless</label>
+                    <input id="OutdatedCPE" value=" Outdated CPE |" type="checkbox">
+                    <label class="checkbox" for="OutdatedCPE"> Outdated CPE</label>
+                    <input id="OutOfScope" value=" Out of Scope:" type="checkbox">
+                    <label class="checkbox" for="OutOfScope"> Out Of Scope</label>
+                    <input id="Other" value=" Other:" type="checkbox">
+                    <label class="checkbox" for="Other"> Other</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <span id="NoSyncTSLabel" style="font-size:15px;font-weight:bold;">No Sync Troubleshooting:</span>
+                <div id="NoSyncTS" class="columnNoSyncElems">
+                    <input id="NoSyncDialTone" value=" Checked for Dial Tone on Phone Line |" type="checkbox">
+                    <label class="checkbox" for="NoSyncDialTone"> Checked for Dial Tone?</label>
+                    <input id="NoSyncModemLoc" value=" Verified Modem has not been moved. |" type="checkbox">
+                    <label class="checkbox" for="NoSyncModemLoc"> Modem has not been moved?</label>
+                    <input id="NoSyncFilterPlace" value=" Verified Correct Filter Placement |" type="checkbox">
+                    <label class="checkbox" for="NoSyncFilterPlace"> Checked Filter Placement?</label>
+                    <input id="NoSyncReseatCable" value=" Reseated DSL Cable |" type="checkbox">
+                    <label class="checkbox" for="NoSyncReseatCable"> Reseated DSL Cable?</label>
+                    <input id="NoSyncPowerC" value=" Powercycled Modem |" type="checkbox">
+                    <label class="checkbox" for="NoSyncPowerC"> Powercycled?</label>
+                    <input id="NoSyncCabLen" value=" Verified DSL Cable < 10ft |" type="checkbox">
+                    <label class="checkbox" for="NoSyncCabLen"> Checked Cable Length?</label>
+                    <input id="NoSyncRadius" value=" Radius Usage - [    ] |" type="checkbox">
+                    <label class="checkbox" for="NoSyncRadius"> Radius Usage?</label>
+                    <input id="NoSyncLoopCare" value=" <br>Loopcare - VER ( )<br>PORT ADMIN STATUS ( )<br>" type="checkbox">
+                    <label class="checkbox" for="NoSyncLoopCare"> Loopcare?</label>
+                    <input id="NoSyncDispatch" value=" Dispatched Field Tech |" type="checkbox">
+                    <label class="checkbox" for="NoSyncDispatch"> Dispatched?</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <span id="EmailTSLabel" style="font-size:15px;font-weight:bold;">Email Troubleshooting:</span>
+                <div id="EmailTS" class="columnNoSyncElems">
+                    <input id="EmailCompAVScan" value=" CX Ran AV Scan |" type="checkbox">
+                    <label class="checkbox" for="EmailCompAVScan"> Customer ran A/V Scan?</label>
+                    <input id="EmailCompChangePass" value=" Changed Email Password |" type="checkbox">
+                    <label class="checkbox" for="EmailCompChangePass"> Changed Email Password?</label>
+                    <input id="EmailCompTRSubmit" value=" Request approved to submit unblock TR |" type="checkbox">
+                    <label class="checkbox" for="EmailCompTRSubmit"> TR? (Requires Approval)</label>
+                    <input id="SRCheckedConn" value=" Verified Internet Connectivity |" type="checkbox">
+                    <label class="checkbox" for="SRCheckedConn"> Verified Internet Connectivity?</label>
+                    <input id="SRTestEmail" value=" Tested Send/Receive Email via Webmail |" type="checkbox">
+                    <label class="checkbox" for="SRTestEmail"> Tested Email via Webmail?</label>
+                    <input id="SRClientSet" value=" Verified Email Client Settings |" type="checkbox">
+                    <label class="checkbox" for="SRClientSet"> Verified Email Client Settings?</label>
+                    <input id="SRRefer" value=" Referred to PTS/External |" type="checkbox">
+                    <label class="checkbox" for="SRRefer"> Referred to PTS or elsewhere?</label><br/><br/>
+                    <input placeholder="Approved By" type="text" id="EmailTRApprovedBy">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <span id="WalledGTSLabel" style="font-size:15px;font-weight:bold;">Walled Garden Troubleshooting:</span>
+                <div id="WalledGardenTS" class="columnNoSyncElems">
+                    <input id="WalledAccntStatus" value=" Verified Account is Active |" type="checkbox">
+                    <label class="checkbox" for="WalledAccntStatus"> Verified Active Account?</label>
+                    <input id="WalledPowerC" value=" Powercycled Modem |" type="checkbox">
+                    <label class="checkbox" for="WalledPowerC"> Powercycled?</label>
+                    <input id="WalledPPUpdateandPC" value=" Navigated to F/W, re-entered PPP Info, Powercycled again |" type="checkbox">
+                    <label class="checkbox" for="WalledPPUpdateandPC"> Updated PPP Info and PC'd?</label>
+                    <input id="WalledChangePass" value=" Changed PPP Password via AWS |" type="checkbox">
+                    <label class="checkbox" for="WalledChangePass"> Changed Password in Inet Portal??</label>
+                    <input id="WalledPPPandPC" value=" Updated New Password in F/W and Powercycled again |" type="checkbox">
+                    <label class="checkbox" for="WalledPPPandPC"> Updated new P/W and PC'd?</label>
+                    <input id="WalledDispatch" value=" Dispatched Field Tech |" type="checkbox">
+                    <label class="checkbox" for="WalledDispatch"> Dispatched?</label><br/><br/>
+                    <span id="WalledGTSPPLabel" style="font-size:15px;font-weight:bold;">PPP Info:</span>
+                    <input placeholder="PPP Username" type="text" id="WalledPPPun">
+                    <input placeholder="PPP Password" type="text" id="WalledPPPpass">
+                </div>
+            </fieldset>
+
+
+            <fieldset>
+                <span id="CnBLabel" style="font-size:15px;font-weight:bold;">Connect No Browse Troubleshooting:</span>
+                <div id="CnBTS" class="columnNoSyncElems">
+                    <input id="CnBCheckWiFiConn" value=" Verified CX is connected via WiFi |" type="checkbox">
+                    <label class="checkbox" for="CnBCheckWiFiConn"> Connected via WiFi?</label>
+                    <input id="CnBCheckEthConn" value=" Verified CX is connected via Ethernet |" type="checkbox">
+                    <label class="checkbox" for="CnBCheckEthConn"> Connected via Ethernet?</label>
+                    <input id="CnBPowerC" value=" Powercycled Modem |" type="checkbox">
+                    <label class="checkbox" for="CnBPowerC"> Powercycled Modem?</label>
+                    <input id="CnBRestartDev" value=" Rebooted Computer/Device |" type="checkbox">
+                    <label class="checkbox" for="CnBRestartDev"> Restarted Computer/Device?</label>
+                    <input id="CnBUpdatePPP" value=" Navigated to F/W, re-entered PPP Info |" type="checkbox">
+                    <label class="checkbox" for="CnBUpdatePPP"> Updated PPP Info?</label>
+                    <input id="CnBValidIP" value=" Opened CMD, checked ipconfig |" type="checkbox">
+                    <label class="checkbox" for="CnBValidIP"> Checked for valid IP?</label>
+                    <input id="CnBSpecdIP" value=" Verified no hardcoded IP in NIC Settings |" type="checkbox">
+                    <label class="checkbox" for="CnBSpecdIP"> Verified No Specified IP?</label>
+                    <input id="CnBResetTCP" value=" Resetted TCP/IP Winsock |" type="checkbox">
+                    <label class="checkbox" for="CnBResetTCP"> Reset TCP/IP?</label>
+                    <input id="CnBCheckedPL" value=" Checked for Packet Loss |" type="checkbox">
+                    <label class="checkbox" for="CnBCheckedPL"> Checked for Packet Loss?</label>
+                    <input id="CnBFoundPL" value=" Found Packet Loss |" type="checkbox">
+                    <label class="checkbox" for="CnBFoundPL"> Found Packet Loss?</label>
+                    <input id="CnBSpecDNS" value=" Specified DNS in Modem |" type="checkbox">
+                    <label class="checkbox" for="CnBSpecDNS"> Specified DNS in Modem?</label>
+                    <input id="CnBAVFW" value=" Checked AV/FW Settings |" type="checkbox">
+                    <label class="checkbox" for="CnBAVFW"> Checked AV/FW Settings?</label>
+                    <input id="CnBdisProxy" value=" Disabled Proxies in Web Browser |" type="checkbox">
+                    <label class="checkbox" for="CnBdisProxy"> Disabled Proxies?</label>
+                    <input id="CnBClearCache" value=" Cleared Cache and Cookies |" type="checkbox">
+                    <label class="checkbox" for="CnBClearCache"> Cleared Cache/Cookies?</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <span id="FreqDiscoTSLabel" style="font-size:15px;font-weight:bold;">Frequent Disconnects Troubleshooting:</span>
+                <div id="FreqDiscoTS" class="columnNoSyncElems">
+
+                    <input id="FreqDiscoAOHD" value=" Verified CX is in an AOHD |" type="checkbox">
+                    <label class="checkbox" for="FreqDiscoAOHD"> AOHD?</label>
+
+                    <input id="FreqDiscoNewDevices" value=" Verified any new devices are filtered |" type="checkbox">
+                    <label class="checkbox" for="FreqDiscoNewDevices"> New devices filtered?</label>
+
+                    <input id="FreqDiscoFilterPlace" value=" Verified Correct Filter Placement |" type="checkbox">
+                    <label class="checkbox" for="FreqDiscoFilterPlace"> Checked Filter Placement?</label>
+
+                    <input id="FreqDiscoCabLen" value=" Verified DSL Cable < 10ft |" type="checkbox">
+                    <label class="checkbox" for="FreqDiscoCabLen"> Checked Cable Length?</label>
+
+
+                    <input id="FreqDiscoRadius" value=" Radius Usage - [    ] |" type="checkbox">
+                    <label class="checkbox" for="FreqDiscoRadius"> Radius Usage?</label>
+
+                    <input id="FreqDiscoLoopCare" value=" <br>Loopcare - VER ( )<br>SNR ( )<br>ATT ( )<br>" type="checkbox">
+                    <label class="checkbox" for="FreqDiscoLoopCare"> Loopcare?</label>
+
+                    <input id="FreqDiscoDispatch" value=" Dispatched Field Tech |" type="checkbox">
+                    <label class="checkbox" for="FreqDiscoDispatch"> Dispatched?</label>
+
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <span id="SlowSpeedsTSLabel" style="font-size:15px;font-weight:bold;">Slow Speeds Troubleshooting:</span>
+                <div id="SlowSpeedsTS" class="columnNoSyncElems">
+
+                    <input id="SlowSpeedsAOHD" value=" Verified CX is in an AOHD |" type="checkbox">
+                    <label class="checkbox" for="SlowSpeedsAOHD"> AOHD?</label>
+                    <input id="SlowSpeedsPowerC" value=" Powercycled Modem |" type="checkbox">
+                    <label class="checkbox" for="SlowSpeedsPowerC"> Powercycled?</label>
+                    <input id="SlowSpeedsEth" value=" Verified CX is connected via Ethernet |" type="checkbox">
+                    <label class="checkbox" for="SlowSpeedsEth"> Connected via Ethernet?</label>
+                    <input id="SlowSpeedsDisWiFi" value=" Disabled WiFi |" type="checkbox">
+                    <label class="checkbox" for="SlowSpeedsDisWiFi"> Disabled WiFi?</label>
+                    <input id="SlowSpeedsDisFW" value=" Disabled Firewall |" type="checkbox">
+                    <label class="checkbox" for="SlowSpeedsDisFW"> Disabled Firewall?</label>
+                    <input id="SlowSpeedsDisAV" value=" Temporarily Disabled AV on Device |" type="checkbox">
+                    <label class="checkbox" for="SlowSpeedsDisAV"> Disabled AV on Device?</label>
+                    <input id="SlowSpeedsSpeedTests" value=" Ran 3 Speed Tests |" type="checkbox">
+                    <label class="checkbox" for="SlowSpeedsSpeedTests"> Ran 3 Speed Tests?</label>
+                    <input id="SlowSpeedsAvgPass" value=" Avg of speed tests is > 70% of provisioned speed |" type="checkbox">
+                    <label class="checkbox" for="SlowSpeedsAvgPass"> Avg of Speed Tests > 70%?</label>
+                    <input id="SlowSpeedsAvgFail" value=" Avg of speed tests is < 70% of provisioned speed |" type="checkbox">
+                    <label class="checkbox" for="SlowSpeedsAvgFail"> Avg of Speed Tests < 70%?</label>
+                    <input id="SlowSpeedsDispatch" value=" Dispatched Field Tech |" type="checkbox">
+                    <label class="checkbox" for="SlowSpeedsDispatch"> Dispatched?</label><br/><br/>
+                    <span id="SlowSpeedsSpeedsLabel" style="font-size:15px;font-weight:bold;">Speed Info:</span>
+                    <input placeholder="Provisioned Speed" type="text" id="SlowSpeedsProvSpeed">
+                    <input placeholder="Average DL Speed" type="text" id="SlowSpeedsDLAvg">
+                    <input placeholder="Average UL Speed" type="text" id="SlowSpeedsULAvg">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <span id="NoRouteDSLLabel" style="font-size:15px;font-weight:bold;">No BRAS Troubleshooting:</span>
+                <div id="NoRouteDSLTS" class="columnNoSyncElems">
+                    <input id="NoRouteDSLPowerC" value=" Powercycled Modem |" type="checkbox">
+                    <label class="checkbox" for="NoRouteDSLPowerC"> Powercycled?</label>
+                    <input id="NoRouteDSLPPUpdateandPC" value=" Navigated to F/W, re-entered PPP Info, Powercycled again |" type="checkbox">
+                    <label class="checkbox" for="NoRouteDSLPPUpdateandPC"> Updated PPP Info and PC'd?</label>
+                    <input id="NoRouteDSLChangePass" value=" Changed PPP Password via AWS |" type="checkbox">
+                    <label class="checkbox" for="NoRouteDSLChangePass"> Changed Password in AWS?</label>
+                    <input id="NoRouteDSLPPPandPC" value=" Updated New Password in F/W and Powercycled again |" type="checkbox">
+                    <label class="checkbox" for="NoRouteDSLPPPandPC"> Updated new P/W and PC'd?</label>
+                    <input id="NoRouteFailedLogins" value=" No Failed Logins |" type="checkbox">
+                    <label class="checkbox" for="NoRouteFailedLogins"> No Failed Logins?</label>
+                    <input id="NoRouteMCO" value=" Contacted MCO |" type="checkbox">
+                    <label class="checkbox" for="NoRouteMCO"> Reach MCO?</label>
+                    <input id="NoRouteDSLDispatch" value=" Dispatched Field Tech |" type="checkbox">
+                    <label class="checkbox" for="NoRouteDSLDispatch"> Dispatched?</label><br/><br/>
+                    <span id="NoRouteDSLPPLabel" style="font-size:15px;font-weight:bold;">PPP Info:</span>
+                    <input placeholder="PPP Username" type="text" id="NoRouteDSLPPPun">
+                    <input placeholder="PPP Password" type="text" id="NoRouteDSLPPPpass">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <span id="NoEthLightTSLabel" style="font-size:15px;font-weight:bold;">No Ethernet Light Troubleshooting:</span>
+                <div id="NoEthLightTS" class="columnNoSyncElems">
+                    <input id="NoEthLightPowerC" value=" Powercycled Modem |" type="checkbox">
+                    <label class="checkbox" for="NoEthLightPowerC"> Powercycled?</label>
+                    <input id="NoEthLightPowerCDevice" value=" Rebooted Device Connected via Ethernet |" type="checkbox">
+                    <label class="checkbox" for="NoEthLightPowerCDevice"> Powercycled Connected Device?</label>
+                    <input id="NoEthLightSecureConns" value=" Verified Secure Connections from Modem to Device |" type="checkbox">
+                    <label class="checkbox" for="NoEthLightSecureConns"> Secured Cable Connections?</label>
+                    <input id="NoEthLightOtherPort" value=" Tried Different Ethernet Port |" type="checkbox">
+                    <label class="checkbox" for="NoEthLightOtherPort"> Different Ethernet Port?</label>
+                    <input id="NoEthLightOtherCable" value=" Tried Different Ethernet Cable |" type="checkbox">
+                    <label class="checkbox" for="NoEthLightOtherCable"> Different Ethernet Cable?</label>
+                    <input id="NoEthLightPatchCheck" value=" Tried Both Ends of Ethernet Cable in back of Modem |" type="checkbox">
+                    <label class="checkbox" for="NoEthLightPatchCheck"> Both Ends of Cable into Modem?</label>
+                    <input id="NoEthLightLACCheck" value=" Verified LAC/LAN is Enabled in Control Panel |" type="checkbox">
+                    <label class="checkbox" for="NoEthLightLACCheck"> LAC Enabled in Control Panel?</label>
+                    <input id="NoEthLightOST" value=" Offered PTS |" type="checkbox">
+                    <label class="checkbox" for="NoEthLightOST"> Offered PTS?</label>
+                    <input id="NoEthLightReferred" value=" Referred externally |" type="checkbox">
+                    <label class="checkbox" for="NoEthLightReferred"> Referred Externally?</label>
+                    <input id="NoEthLightModemReplace" value=" Submitted Modem Replacement |" type="checkbox">
+                    <label class="checkbox" for="NoEthLightModemReplace"> Modem Replacement?</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <span id="NoPowerLightTSLabel" style="font-size:15px;font-weight:bold;">No Power Light Troubleshooting:</span>
+                <div id="NoPowerLightTS" class="columnNoSyncElems">
+                    <input id="NoPowerLightToggle" value=" Toggled Power Switch on Modem |" type="checkbox">
+                    <label class="checkbox" for="NoPowerLightToggle"> Toggled Power Switch?</label>
+                    <input id="NoPowerLightReseat" value=" Reseated Power Cable at Both Ends |" type="checkbox">
+                    <label class="checkbox" for="NoPowerLightReseat"> Reseated Power Cable?</label>
+                    <input id="NoPowerLightAltOutlet" value=" Tried Different Power Outlet |" type="checkbox">
+                    <label class="checkbox" for="NoPowerLightAltOutlet"> Different Power Outlet?</label>
+                    <input id="NoPowerLightModemReplace" value=" Submitted Modem Replacement |" type="checkbox">
+                    <label class="checkbox" for="NoPowerLightModemReplace"> Modem Replacement?</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <span id="WirelessTSLabel" style="font-size:15px;font-weight:bold;">Wireless Troubleshooting:</span>
+                <div id="WirelessTS" class="columnNoSyncElems">
+                    <input id="WiFiEnableCheck" value=" Verified WiFi is Enabled on Modem |" type="checkbox">
+                    <label class="checkbox" for="WiFiEnableCheck"> WiFi Enabled?</label>
+                    <input id="WiFiEnableFW" value=" Enabled WiFi in Modem Firmware |" type="checkbox">
+                    <label class="checkbox" for="WiFiEnableFW"> Had to enable WiFi in F/W?</label>
+                    <input id="WiFiEnableDeviceCheck" value=" Verified WiFi is Enabled on Customer's Device |" type="checkbox">
+                    <label class="checkbox" for="WiFiEnableDeviceCheck"> WiFi Enabled on CX Device?</label>
+                    <input id="WiFiEnableOnDevice" value=" Enabled WiFi on CX Device |" type="checkbox">
+                    <label class="checkbox" for="WiFiEnableOnDevice"> Had to enable on CX Device?</label>
+                    <input id="WiFiCorrectSSID" value=" Verified Correct SSID in F/W |" type="checkbox">
+                    <label class="checkbox" for="WiFiCorrectSSID"> Verified Correct SSID?</label>
+                    <input id="WiFiCorrectPassword" value=" Verified Correct WiFi Password in F/W |" type="checkbox">
+                    <label class="checkbox" for="WiFiCorrectPassword"> Verified Correct Password?</label>
+                    <input id="WiFiChangeSSID" value=" Changed SSID via Modem F/W |" type="checkbox">
+                    <label class="checkbox" for="WiFiChangeSSID"> Changed SSID in F/W?</label>
+                    <input id="WiFiChangePassword" value=" Changed Password via Modem F/W |" type="checkbox">
+                    <label class="checkbox" for="WiFiChangePassword"> Changed Password in F/W?</label>
+                    <input id="WiFiForgetNetwork" value=" Forgot Network and Reconnected on CX Device |" type="checkbox">
+                    <label class="checkbox" for="WiFiForgetNetwork"> Forgot Network and Reconnect?</label>
+                    <!-- We do not TS CNB over WL <input id="WiFiCnB" value="" type="checkbox">
+                    <label class="checkbox" for="WiFiCnB"> WiFi Connect No Browse?</label> -->
+                    <input placeholder="SSID" type="text" id="WiFiSSID">
+                    <input placeholder="WPA Password" type="text" id="WiFiPass">
+                    <input placeholder="Encryption Type" type="text" id="WiFiENCType">
+                    <input placeholder="WiFi Channel" type="text" id="WiFiChannel">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <span id="OOSTSLabel" style="font-size:15px;font-weight:bold;">Out of Scope Troubleshooting:</span>
+                <div id="OOSTS" class="columnNoSyncElems">
+                    <input id="OOSOEM" value=" Referred to OEM |" type="checkbox">
+                    <label class="checkbox" for="OOSOEM"> Referred to OEM?</label>
+                    <input id="OOSProvider" value=" Referred to Provider |" type="checkbox">
+                    <label class="checkbox" for="OOSProvider"> Referred to Provider?</label>
+                    <input id="OOSOST" value=" Referred to PTS |" type="checkbox">
+                    <label class="checkbox" for="OOSOST"> Referred to PTS?</label>
+                    <input id="OOSCS" value=" Referred to CS |" type="checkbox">
+                    <label class="checkbox" for="OOSCS"> Referred to CS?</label><br/><br/>
+                    <input placeholder="Issue Description" type="text" id="OOSIssueDesc">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <span id="OtherTSLabel" style="font-size:15px;font-weight:bold;">Other Troubleshooting:</span>
+                <div id="OtherTS" class="columns">
+                    <input placeholder="Issue Description" type="text" id="otherIssueDesc">
+                    <input placeholder="Troubleshooting Description" type="text" id="otherTSDesc">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <span id="DispatchSpecTempLabel" style="font-size:15px;font-weight:bold;">Dispatch Information:</span>
+                <div id="DispatchSpecTempNotes" class="columnNoSyncElems">
+                    <input placeholder="Approved By" type="text" id="dispApprovedBy">
+                    <input placeholder="Contact Number" type="text" id="dispCTN" maxlength="10">
+                    <input placeholder="Ticket Number" type="text" id="dispTicketNumber">
+                    <input placeholder="Commit" type="text" id="dispCommit">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <span id="ModemReplaceSpecTempLabel" style="font-size:15px;font-weight:bold;">Modem Replacement Information:</span>
+                <div id="ModemReplaceSpecTempNotes" class="columnNoSyncElems">
+                    <input placeholder="Approved By" type="text" id="ModemReplaceApprovedBy">
+                </div>
+            </fieldset>
+            <fieldset>
+                <a class="myButton" id="fSecure" style="margin-left:2px;">F-Secure Pitch</a>
+                <a class="myButton" id="nps" style="margin-left: 180px;">Customer Survey</a>
+            </fieldset>
+            -->
+            <div id="dialog-saleQuestion" title="Frontier Secure Pitch">
+                <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Did you offer the customer Frontier Secure products?</p>
+            </div>
+            <div id="dialog-Sale" title="Input Frontier Secure Pitch Notes">
+                <p class="validateTips">All form fields are required.</p>
+                <form>
+                    <fieldset>
+                        <label for="product">Product</label>
+                        <input type="text" name="product" id="product" value=" Ultimate Security Bundle" class="text ui-widget-content ui-corner-all"><br/>
+                        <label for="email2">Email</label>
+                        <input type="text" name="email" id="email2" value=" jane@smith.com" class="text ui-widget-content ui-corner-all"><br/>
+                        <label for="price">Price</label>
+                        <input type="text" name="price" id="price" value=" $14.99 (19.99 - 5)" class="text ui-widget-content ui-corner-all"><br/>
+                        <br>
+                        <label>Did the customer accept product pricing and desire to add the product to their account?</label>
+                        <br>
+                        <select name="agreed" id="agreed">
+                            <option value="Yes" selected>Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+                    </fieldset>
+                </form>
+            </div>
+            <div id="dialog-surveyNPS" title="Customer Survey: Read this verbiage">
+                <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+                    <b>"I want to let you know that after the conclusion of today's call, you may receive<br>
+                        a survey asking you to rank OUR interaction. The survey is about this call in <br>
+                        particular, and I would appreciate any feedback you can give me.....Have I resolved<br>
+                        all your issues today?.....  OK, Thank you for calling Frontier tech support!"</b></p>
+            </div>
+            <br/>
+        </form>
+
+
+    </div>
+
+    <div class="OutCont right-div">
+        <div class="output" id="output" contenteditable="true">
+TT: <span id="tt"></span>
+BTN: <span id="btn"></span>
+CBN: <span id="cbn"></span>
+VERIFIED: <span id="veri"></span>
+EMAIL: <span id="emailAddy"></span>
+ISP: DSL/HSI - <span id="isActive"></span>
+Modem: <span id="primModemOut"></span><span id="LightStatusLabel">
+Lights: <span id="LightStatusesOut"></span></span>
+Issue(s):<span id="issueFromBox"></span> <span id="otherDescOut"></span>
+
+            <span id="TSOutputLabel">
+Troubleshooting: <span id="TSOutputSec"></span></span><br/>
+            <span id="emailTRApprovalLabel"> </span><span id="gardenPPPLabel"> </span>
+            <span id="speedInfoLabel"> </span>
+            <span id="wirelessLabel"> </span>
+            <span id="oosDescriptionLabel"> </span>
+            <span id="otherDescriptionLabel"> </span>
+            <span id="TSOutputDispatchLabel">
+</span>
+            <span id="TSOutputModemReplaceLabel">
+</span>
+            </span><span id="FSecureOutLabel">
+F-Secure: <span id="FSecureOut"></span></span><br><span id="NPSSurveyOutLabel">
+Customer Survey:  <span id="NPSSurveyOut"></span>
+                </span>
+        </div>
+        <a href="#" class="myButton" id="copyButton" onclick="copyToClipboard('#output')" style="margin-left:238px;">COPY</a>
+        <a href="." id="resetBTN" class="myButton" style="margin-left:140px;">RESET</a>
+
+    </div>
+    <!-- HIDDEN BOXES FROM COPY -->
+    <div id="tsHiding">
+        <div id="emailTSHiding">
+            <span id="EmailTRApprovedByLabelHidden">
+Unblock TR Approved By: <span id="EmailTRApprovedByOut"></span></span>
+        </div>
+        <div id="pppInformationHiding">
+                <span id="PPPInfoHidden">
+PPP Username: <span id="PPPUserOut"></span>
+PPP Password: <span id="PPPpassOut"></span>
+                </span>
+        </div>
+        <span id="oosHidden">
+OOS Issue: <span id="oosIssDesc"></span>
+            </span>
+        <span id="otherHidden">
+Other Issue: <span id="otherIssDesc"></span>
+Other Troubleshooting: <span id="otherIssTS"></span>
+            </span>
+        <span id="WiFiInfoLabelHidden">
+WIRELESS INFO
+SSID: <span id="WiFiInfoSSIDOut"></span>
+Password: <span id="WiFiInfoPassOut"></span>
+Encryption: <span id="WiFiENCTypeOut"></span>
+Channel: <span id="WiFiChannelOut"></span>
+            </span>
+        <span id="SpeedsInfoHidden">
+Provisioned Speed: <span id="SpeedsInfoProvOut"></span>
+AVG DL Speed: <span id="SpeedsInfoDLOut"></span>
+AVG UL Speed: <span id="SpeedsInfoULOut"></span>
+            </span>
+    </div>
+    <div id="dispatchHiding">
+            <span id="TSOutputDispatchLabelHidden">
+DISPATCH NOTES
+Approval from: <span id="dispApprovalOut"></span>
+Contact Number: <span id="dispCTNOut"></span>
+Ticket Number: <span id="dispTicketNumberOut"></span>
+Commit Date / Time: <span id="dispCommitOut"></span>
+            </span>
+    </div>
+    <div id="modemReplacementHiding">
+            <span id="TSOutputModemReplaceLabelHidden">
+MODEM REPLACEMENT
+Approval from: <span id="ModemReplaceApprovalOut"></span>
+            </span>
+
+    </div>
+    <!-- HIDDEN BOXES FROM COPY -->
+</div>
+</body>
+
+
+<script src="js/jquery.min.js" crossorigin="anonymous"></script>
+<script src="js/jquery-ui.min.js" crossorigin="anonymous"></script>
+<script src="js/proc.js"></script>
+
+</html>
